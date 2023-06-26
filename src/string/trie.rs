@@ -20,7 +20,7 @@ impl Trie {
     }
 
     pub fn new() -> Self {
-        let mut nodes = vec![State::default()];
+        let nodes = vec![State::default()];
         Self { nodes }
     }
 
@@ -59,5 +59,25 @@ impl Trie {
         }
 
         self.nodes[vertex].is_terminal
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn trie_unit_1() {
+        let mut trie = Trie::new();
+        let strings = ["the", "a", "there", "answer", "any", "by", "bye", "their"];
+
+        for string in strings {
+            trie.add_string(string);
+        }
+
+        assert_eq!(trie.contains("the"), true);
+        assert_eq!(trie.contains("these"), false);
+        assert_eq!(trie.contains("their"), true);
+        assert_eq!(trie.contains("thaw"), false);
     }
 }

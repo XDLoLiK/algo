@@ -1,4 +1,4 @@
-use std::{cmp::min, vec::Vec};
+use std::cmp::min;
 
 /// O(string.len()) time.
 pub fn z_function(string: &str) -> Vec<usize> {
@@ -26,4 +26,27 @@ pub fn z_function(string: &str) -> Vec<usize> {
     }
 
     z_array
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn z_function_unit_1() {
+        let string = "aaaaa";
+        assert_eq!(z_function(string), [0, 4, 3, 2, 1]);
+    }
+
+    #[test]
+    fn z_function_unit_2() {
+        let string = "aaabaab";
+        assert_eq!(z_function(string), [0, 2, 1, 0, 2, 1, 0]);
+    }
+
+    #[test]
+    fn z_function_unit_3() {
+        let string = "abacaba";
+        assert_eq!(z_function(string), [0, 0, 1, 0, 3, 0, 1]);
+    }
 }

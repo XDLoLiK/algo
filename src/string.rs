@@ -1,17 +1,11 @@
 #[cfg(feature = "z_function")]
-mod z_function;
-#[cfg(feature = "z_function")]
-pub use z_function::z_function;
+pub mod z_function;
 
 #[cfg(feature = "prefix_function")]
-mod prefix_function;
-#[cfg(feature = "prefix_function")]
-pub use prefix_function::prefix_function;
+pub mod prefix_function;
 
 #[cfg(feature = "kmp")]
-mod kmp;
-#[cfg(feature = "kmp")]
-pub use kmp::kmp;
+pub mod kmp;
 
 #[cfg(feature = "trie")]
 pub mod trie;

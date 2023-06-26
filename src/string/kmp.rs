@@ -1,4 +1,4 @@
-use crate::string::prefix_function;
+use crate::string::prefix_function::prefix_function;
 
 /// O(pattern.len() + text.len()) time.
 ///
@@ -39,4 +39,16 @@ pub fn kmp(pattern: &str, text: &str) -> Vec<usize> {
     }
 
     answer
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn kmp_unit() {
+        let pattern = "aba";
+        let text = "babac";
+        assert_eq!(kmp(pattern, text), [1]);
+    }
 }

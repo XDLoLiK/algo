@@ -1,5 +1,3 @@
-use std::vec::Vec;
-
 /// O(string.len()) time.
 pub fn prefix_function(string: &str) -> Vec<usize> {
     let strlen = string.len();
@@ -20,4 +18,27 @@ pub fn prefix_function(string: &str) -> Vec<usize> {
     }
 
     prefix_array
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn prefix_function_unit_1() {
+        let string = "aaaaa";
+        assert_eq!(prefix_function(string), [0, 1, 2, 3, 4]);
+    }
+
+    #[test]
+    fn prefix_function_unit_2() {
+        let string = "aabaaab";
+        assert_eq!(prefix_function(string), [0, 1, 0, 1, 2, 2, 3]);
+    }
+
+    #[test]
+    fn prefix_function_unit_3() {
+        let string = "abcabcd";
+        assert_eq!(prefix_function(string), [0, 0, 0, 1, 2, 3, 0]);
+    }
 }
