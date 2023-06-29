@@ -2,18 +2,28 @@ extern crate num;
 
 use num::Zero;
 
-use std::{ops::AddAssign, fmt::Debug};
+use std::ops::AddAssign;
 
 #[derive(Debug, Default, Clone)]
-pub struct SegmentTree<T> {
+pub struct SegmentTree<T>
+where
+    T: AddAssign + Zero + Copy,
+{
     size: usize,
     data: Vec<T>,
 }
 
 impl<T> SegmentTree<T>
 where
-    T: AddAssign + Zero + Copy + Debug,
+    T: AddAssign + Zero + Copy,
 {
+    /// O(1)
+    pub fn with_capacity(capacity: usize) -> Self {
+        let size = capacity.next_power_of_two();
+        let data = vec![T::zero(); size * 2];
+        Self { size, data }
+    }
+
     /// O(n) time
     ///
     /// O(n) memory
