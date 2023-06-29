@@ -14,6 +14,11 @@ impl<T> SegmentTree<T>
 where
     T: AddAssign + Zero + Copy + Debug,
 {
+    /// O(n) time
+    ///
+    /// O(n) memory
+    ///
+    /// Where n is array.len().next_power_of_two()
     pub fn build(array: &[T]) -> Self {
         let size = array.len().next_power_of_two();
         let mut data = vec![T::zero(); size * 2];
@@ -29,10 +34,14 @@ where
         Self { size, data }
     }
 
+    /// O(1)
     pub fn size(&self) -> usize {
         self.size
     }
 
+    /// O(log n) time
+    ///
+    /// Where n is self.size
     pub fn sum(&self, mut left: usize, mut right: usize) -> T {
         let mut ans: T = T::zero();
         left += self.size;
@@ -54,6 +63,9 @@ where
         ans
     }
 
+    /// O(log n) time
+    ///
+    /// Where n is self.size
     pub fn update(&mut self, mut index: usize, value: T) {
         assert!(index < self.size);
 
