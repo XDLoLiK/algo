@@ -11,46 +11,29 @@ rust-version = "1.70.0"
 [features]
 default = [
     "string",
-    "geometry",
-    "number_theory",
+    "bst",
+
 ]
 
 string = [
     "z_function",
     "prefix_function",
     "kmp",
-    "rabin_karp",
     "trie",
-    "aho_corasick",
     "suffix_automaton",
 ]
 
 z_function = []
 prefix_function = []
 kmp = ["prefix_function"] # knuth morris pratt
-rabin_karp = []
 trie = []
-aho_corasick = []
 suffix_automaton = []
 
-number_theory = [
-    "euclidean",
-    "eratosthenes",
-    "fft",
+bst = [
+    "segment_tree",
 ]
 
-euclidean = []
-eratosthenes = []
-fft = []
+segment_tree = []
 
-geometry = [
-    "vec",
-    "line_segment",
-    "convex_hull",
-    "minkowski",
-]
-
-vec = []
-line_segment = ["vec"]
-convex_hull = []
-minkowski = []
+[dependencies]
+num = "0.4.0"
