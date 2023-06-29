@@ -2,8 +2,9 @@ extern crate num;
 
 use num::Zero;
 
-use std::ops::AddAssign;
+use std::{ops::AddAssign, fmt::Debug};
 
+#[derive(Debug, Default, Clone)]
 pub struct SegmentTree<T> {
     size: usize,
     data: Vec<T>,
@@ -11,7 +12,7 @@ pub struct SegmentTree<T> {
 
 impl<T> SegmentTree<T>
 where
-    T: AddAssign + Zero + Copy,
+    T: AddAssign + Zero + Copy + Debug,
 {
     pub fn build(array: &[T]) -> Self {
         let size = array.len().next_power_of_two();

@@ -12,7 +12,6 @@ rust-version = "1.70.0"
 default = [
     "string",
     "bst",
-
 ]
 
 string = [
