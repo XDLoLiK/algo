@@ -1,68 +1,26 @@
 extern crate num;
 
-use num::{Bounded, One, Zero};
+use num::traits::One;
 
-use std::{
-    cmp::{max, min},
-    ops::{AddAssign, MulAssign},
-};
-
-#[derive(Debug, Default, Clone)]
-struct Node<T>
-where
-    T: AddAssign + Zero + MulAssign + One + Ord + Bounded + Copy,
-{
-    sum: T,
-    product: T,
-    min: T,
-    max: T,
-}
-
-impl<T> Node<T>
-where
-    T: AddAssign + Zero + MulAssign + One + Ord + Bounded + Copy,
-{
-    fn neutral() -> Self {
-        Self {
-            sum: T::zero(),
-            product: T::one(),
-            min: T::min_value(),
-            max: T::max_value(),
-        }
-    }
-}
+use std::ops::MulAssign;
 
 #[derive(Debug, Default, Clone)]
 pub struct SegmentTree<T>
 where
-    T: AddAssign + Zero + MulAssign + One + Ord + Bounded + Copy,
+    T: MulAssign + One + Copy,
 {
     size: usize,
-    data: Vec<Node<T>>,
+    data: Vec<T>,
 }
 
 impl<T> SegmentTree<T>
 where
-    T: AddAssign + Zero + MulAssign + One + Ord + Bounded + Copy,
+    T: MulAssign + One + Copy,
 {
-    fn update_single(data: &mut Vec<Node<T>>, index: usize, value: T) {
-        data[index].sum = value;
-        data[index].product = value;
-        data[index].max = value;
-        data[index].min = value;
-    }
-
-    fn propagate(data: &mut Vec<Node<T>>, index: usize) {
-        data[index].sum = data[index * 2].sum + data[index * 2 + 1].sum;
-        data[index].product = data[index * 2].product * data[index * 2 + 1].product;
-        data[index].min = min(data[index * 2].min, data[index * 2 + 1].min);
-        data[index].max = max(data[index * 2].max, data[index * 2 + 1].max);
-    }
-
     /// O(1)
     pub fn with_capacity(capacity: usize) -> Self {
         let size = capacity.next_power_of_two();
-        let data = vec![Node::<T>::neutral(); size * 2];
+        let data = vec![T::one(); size * 2];
 
         Self { size, data }
     }
@@ -70,18 +28,16 @@ where
     /// O(n) time
     ///
     /// O(n) memory
-    ///
-    /// Where n is array.len().next_power_of_two()
     pub fn build(array: &[T]) -> Self {
         let size = array.len().next_power_of_two();
-        let mut data = vec![Node::<T>::neutral(); size * 2];
+        let mut data = vec![T::one(); size * 2];
 
         for i in 0..array.len() {
-            Self::update_single(&mut data, size + i, array[i]);
+            data[size + i] = array[i];
         }
 
         for i in (size - 1)..1 {
-            Self::propagate(&mut data, i);
+            data[i] = data[i * 2] * data[i * 2 + 1];
         }
 
         Self { size, data }
@@ -93,23 +49,21 @@ where
     }
 
     /// O(log n) time
-    ///
-    /// Where n is self.size
-    pub fn sum(&self, mut left: usize, mut right: usize) -> T {
+    pub fn product(&self, mut left: usize, mut right: usize) -> T {
         assert!(left < self.size);
         assert!(right < self.size);
 
-        let mut ans: T = T::zero();
+        let mut ans: T = T::one();
         left += self.size;
         right += self.size;
 
         while left <= right {
             if left % 2 == 1 {
-                ans += self.data[left].sum;
+                ans *= self.data[left];
             }
 
             if right % 2 == 0 {
-                ans += self.data[right].sum;
+                ans *= self.data[right];
             }
 
             left = (left + 1) / 2;
@@ -120,17 +74,15 @@ where
     }
 
     /// O(log n) time
-    ///
-    /// Where n is self.size
     pub fn update(&mut self, mut index: usize, value: T) {
         assert!(index < self.size);
 
         index += self.size;
-        Self::update_single(&mut self.data, index, value);
+        self.data[index] = value;
 
         while index > 0 {
             index /= 2;
-            Self::propagate(&mut self.data, index);
+            self.data[index] = self.data[index * 2] * self.data[index * 2 + 1];
         }
     }
 }
@@ -141,17 +93,17 @@ mod tests {
 
     #[test]
     fn segment_tree_unit_1() {
-        let mut st = SegmentTree::build(&[0; 5]);
+        let mut st = SegmentTree::build(&[1; 5]);
 
         st.update(1, 2);
-        st.update(2, 1);
-        st.update(3, 2);
+        st.update(2, 3);
+        st.update(3, 4);
 
-        assert_eq!(st.sum(0, 0), 0);
-        assert_eq!(st.sum(1, 1), 2);
-        assert_eq!(st.sum(2, 2), 1);
-        assert_eq!(st.sum(3, 3), 2);
-        assert_eq!(st.sum(4, 4), 0);
-        assert_eq!(st.sum(0, 4), 5);
+        assert_eq!(st.product(0, 0), 1);
+        assert_eq!(st.product(1, 1), 2);
+        assert_eq!(st.product(2, 2), 3);
+        assert_eq!(st.product(3, 3), 4);
+        assert_eq!(st.product(4, 4), 1);
+        assert_eq!(st.product(0, 4), 24);
     }
 }

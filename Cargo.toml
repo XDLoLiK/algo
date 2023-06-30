@@ -30,9 +30,11 @@ suffix_automaton = []
 
 bst = [
     "segment_tree",
+    "fenwick_tree",
 ]
 
 segment_tree = []
+fenwick_tree = []
 
 [dependencies]
 num = "0.4.0"
