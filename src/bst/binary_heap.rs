@@ -2,7 +2,7 @@ extern crate num;
 
 use num::traits::Bounded;
 
-use std::ops::{SubAssign, AddAssign};
+use std::ops::{AddAssign, SubAssign};
 
 /// O(1)
 fn parent(pos: usize) -> usize {

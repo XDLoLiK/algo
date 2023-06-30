@@ -14,39 +14,44 @@ pub struct Trie {
 }
 
 impl Trie {
-    fn new_node(&mut self) -> usize {
-        self.nodes.push(State::default());
-        self.nodes.len() - 1
-    }
-
     pub fn new() -> Self {
         let nodes = vec![State::default()];
+
         Self { nodes }
     }
 
     pub fn build(string: &str) -> Self {
         let mut ret = Trie::new();
         ret.add_string(string);
+
         ret
     }
 
-    /// O(string.len()) time.
+    fn new_node(&mut self) -> usize {
+        self.nodes.push(State::default());
+        self.nodes.len() - 1
+    }
+
+    /// O(n) time
     pub fn add_string(&mut self, string: &str) {
         let mut vertex = ROOT;
 
         for c in string.chars() {
-            if !self.nodes[vertex].to.contains_key(&c) {
-                let new_node = self.new_node();
-                self.nodes[vertex].to.insert(c, new_node);
+            match self.nodes[vertex].to.get(&c) {
+                None => {
+                    let new_node = self.new_node();
+                    self.nodes[vertex].to.insert(c, new_node);
+                }
+                Some(_) => (),
             }
 
-            vertex = *self.nodes[vertex].to.get(&c).unwrap();
+            vertex = self.nodes[vertex].to[&c];
         }
 
         self.nodes[vertex].is_terminal = true;
     }
 
-    /// O(string.len()) time.
+    /// O(n) time
     pub fn contains(&self, string: &str) -> bool {
         let mut vertex = ROOT;
 
@@ -55,7 +60,7 @@ impl Trie {
                 return false;
             }
 
-            vertex = *self.nodes[vertex].to.get(&c).unwrap();
+            vertex = self.nodes[vertex].to[&c];
         }
 
         self.nodes[vertex].is_terminal

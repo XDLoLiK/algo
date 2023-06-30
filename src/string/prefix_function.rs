@@ -1,4 +1,4 @@
-/// O(string.len()) time.
+/// O(n) time.
 pub fn prefix_function(string: &str) -> Vec<usize> {
     let strlen = string.len();
     let mut prefix_array = vec![0; strlen];

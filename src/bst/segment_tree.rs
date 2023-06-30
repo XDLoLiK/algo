@@ -32,9 +32,7 @@ where
         let size = array.len().next_power_of_two();
         let mut data = vec![T::one(); size * 2];
 
-        for i in 0..array.len() {
-            data[size + i] = array[i];
-        }
+        data[size..(size + array.len())].copy_from_slice(array);
 
         for i in (size - 1)..1 {
             data[i] = data[i * 2] * data[i * 2 + 1];

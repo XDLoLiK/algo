@@ -11,7 +11,7 @@ struct State {
     is_terminal: bool,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct SuffixAutomaton {
     last: usize,
     states: Vec<State>,

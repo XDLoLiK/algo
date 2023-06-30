@@ -1,8 +1,8 @@
 use crate::string::prefix_function::prefix_function;
 
-/// O(pattern.len() + text.len()) time.
+/// O(m + n) time.
 ///
-/// O(pattern.len()) space.
+/// O(m) space.
 pub fn kmp(pattern: &str, text: &str) -> Vec<usize> {
     let pattern_len = pattern.len();
     let text_len = text.len();
@@ -13,7 +13,7 @@ pub fn kmp(pattern: &str, text: &str) -> Vec<usize> {
         return answer;
     }
 
-    // O(pattern.len()) space
+    // O(m) space
     let prefix_array = prefix_function(&(pattern.to_owned() + "#"));
     let mut curr = prefix_array[pattern_len]; // 0
 
