@@ -17,3 +17,13 @@ pub mod string;
     feature = "binary_heap",
 ))]
 pub mod bst;
+
+#[cfg(any(
+    feature = "sort",
+    feature = "quick",
+    feature = "merge",
+    feature = "heap",
+    feature = "radix",
+    feature = "bubble",
+))]
+pub mod sort;

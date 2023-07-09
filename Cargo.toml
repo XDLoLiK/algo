@@ -12,6 +12,7 @@ rust-version = "1.70.0"
 default = [
     "string",
     "bst",
+    "sort",
 ]
 
 string = [
@@ -37,6 +38,20 @@ bst = [
 segment_tree = []
 fenwick_tree = []
 binary_heap = []
+
+sort = [
+    "quick",
+    "merge",
+    "heap",
+    "radix",
+    "bubble",
+]
+
+quick = []
+merge = []
+heap = []
+radix = []
+bubble = []
 
 [dependencies]
 num = "0.4.0"
