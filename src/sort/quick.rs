@@ -57,10 +57,18 @@ mod tests {
     use super::*;
 
     #[test]
-    fn quick_sort_unit_test_1() {
+    fn quick_sort_numbers_test_1() {
         let mut array = [5, 1, 2, 345, 35, 12, 1];
         quick_sort(&mut array);
 
         assert_eq!(array, [1, 1, 2, 5, 12, 35, 345]);
+    }
+
+    #[test]
+    fn quick_sort_string_test_1() {
+        let mut array = ["aa", "bbc", "bab", "ca", "bac", "bac", "a"];
+        quick_sort(&mut array);
+
+        assert_eq!(array, ["a", "aa", "bab", "bac", "bac", "bbc", "ca"]);
     }
 }

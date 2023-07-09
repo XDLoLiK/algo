@@ -20,10 +20,18 @@ mod tests {
     use super::*;
 
     #[test]
-    fn bubble_sort_unit_test_1() {
+    fn bubble_sort_numbers_test_1() {
         let mut array = [5, 1, 2, 345, 35, 12, 1];
         bubble_sort(&mut array);
 
         assert_eq!(array, [1, 1, 2, 5, 12, 35, 345]);
+    }
+
+    #[test]
+    fn bubble_sort_string_test_1() {
+        let mut array = ["aa", "bbc", "bab", "ca", "bac", "bac", "a"];
+        bubble_sort(&mut array);
+
+        assert_eq!(array, ["a", "aa", "bab", "bac", "bac", "bbc", "ca"]);
     }
 }
