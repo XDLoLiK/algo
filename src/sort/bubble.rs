@@ -1,4 +1,4 @@
-use std::cmp::{Ord, Ordering};
+use std::cmp::Ord;
 
 pub fn bubble_sort<T>(array: &mut [T])
 where
