@@ -8,9 +8,8 @@ where
 
     for i in 0..size {
         for j in (i + 1)..size {
-            match array[i].cmp(&array[j]) {
-                Ordering::Greater => array.swap(i, j),
-                _ => (),
+            if array[i] > array[j] {
+                array.swap(i, j)
             }
         }
     }
