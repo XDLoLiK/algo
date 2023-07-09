@@ -1,7 +1,19 @@
 #![allow(dead_code)]
 
-#[cfg(feature = "string")]
+#[cfg(any(
+    feature = "string",
+    feature = "z_function",
+    feature = "prefix_function",
+    feature = "kmp",
+    feature = "trie",
+    feature = "suffix_automaton",
+))]
 pub mod string;
 
-#[cfg(feature = "bst")]
+#[cfg(any(
+    feature = "bst",
+    feature = "segment_tree",
+    feature = "fenwick_tree",
+    feature = "binary_heap",
+))]
 pub mod bst;
