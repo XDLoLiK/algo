@@ -1,15 +1,16 @@
-use std::cmp::PartialOrd;
+use std::cmp::{Ord, Ordering};
 
 pub fn bubble_sort<T>(array: &mut [T])
 where
-    T: PartialOrd,
+    T: Ord,
 {
     let size = array.len();
 
     for i in 0..size {
         for j in (i + 1)..size {
-            if array[i] > array[j] {
-                array.swap(i, j);
+            match array[i].cmp(&array[j]) {
+                Ordering::Greater => array.swap(i, j),
+                _ => (),
             }
         }
     }
