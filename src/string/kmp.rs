@@ -1,8 +1,7 @@
 use crate::string::prefix_function::prefix_function;
 
-/// O(m + n) time.
-///
-/// O(m) space.
+/// O(m + n) time\
+/// O(m) space
 pub fn kmp(pattern: &str, text: &str) -> Vec<usize> {
     let pattern_len = pattern.len();
     let text_len = text.len();

@@ -4,17 +4,14 @@ use num::traits::Bounded;
 
 use std::ops::{AddAssign, SubAssign};
 
-/// O(1)
 fn parent(pos: usize) -> usize {
     (pos - 1) / 2
 }
 
-/// O(1)
 fn left(pos: usize) -> usize {
     pos * 2 + 1
 }
 
-/// O(1)
 fn right(pos: usize) -> usize {
     pos * 2 + 2
 }
@@ -41,7 +38,7 @@ where
         }
     }
 
-    /// O(n log n)
+    /// O(n log n) time
     pub fn build(array: &[T]) -> Self {
         let mut new = Self::with_capacity(array.len());
 
@@ -150,7 +147,7 @@ where
         }
     }
 
-    /// O(n log n)
+    /// O(n log n) time
     pub fn build(array: &[T]) -> Self {
         let mut new = Self::with_capacity(array.len());
 

@@ -1,6 +1,6 @@
 use std::cmp::min;
 
-/// O(n) time.
+/// O(n) time
 pub fn z_function(string: &str) -> Vec<usize> {
     let strlen = string.len();
     let mut z_array = vec![0; strlen];

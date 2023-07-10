@@ -6,3 +6,6 @@ pub mod quick;
 
 #[cfg(feature = "merge")]
 pub mod merge;
+
+#[cfg(feature = "heap")]
+pub mod heap;

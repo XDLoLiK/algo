@@ -1,5 +1,10 @@
 use std::cmp::{Ord, Ordering};
 
+/// O(n^2) time (worst case)\
+/// O(n log n) time (best case)\
+/// O(n log n) time (average)\
+/// O(log n) space\
+/// Not stable
 pub fn quick_sort<T>(array: &mut [T])
 where
     T: Ord + Copy,

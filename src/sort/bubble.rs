@@ -1,5 +1,10 @@
 use std::cmp::Ord;
 
+/// O(n^2) time (worst)\
+/// O(n) time (best)\
+/// O(n^2) time (average)\
+/// O(1) spacce\
+/// Stable
 pub fn bubble_sort<T>(array: &mut [T])
 where
     T: Ord,

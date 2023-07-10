@@ -62,9 +62,8 @@ impl SuffixAutomaton {
         true
     }
 
-    /// O(n) time
-    ///
-    /// O(n) memory
+    /// O(n) time\
+    /// O(n) space
     pub fn add_string(&mut self, string: &str) {
         for sym in string.chars() {
             self.add_char(sym);

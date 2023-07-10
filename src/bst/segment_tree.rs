@@ -17,7 +17,7 @@ impl<T> SegmentTree<T>
 where
     T: MulAssign + One + Copy,
 {
-    /// O(1)
+    /// O(1) time
     pub fn with_capacity(capacity: usize) -> Self {
         let size = capacity.next_power_of_two();
         let data = vec![T::one(); size * 2];
@@ -25,9 +25,8 @@ where
         Self { size, data }
     }
 
-    /// O(n) time
-    ///
-    /// O(n) memory
+    /// O(n) time\
+    /// O(n) space
     pub fn build(array: &[T]) -> Self {
         let size = array.len().next_power_of_two();
         let mut data = vec![T::one(); size * 2];
@@ -41,7 +40,6 @@ where
         Self { size, data }
     }
 
-    /// O(1)
     pub fn size(&self) -> usize {
         self.size
     }

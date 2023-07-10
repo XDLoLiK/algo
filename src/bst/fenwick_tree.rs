@@ -17,17 +17,12 @@ impl<T> FenwickTree<T>
 where
     T: Sub<Output = T> + AddAssign + Zero + Copy,
 {
-    /// O(1) time
-    ///
-    /// This is a special function such that for all i:\
-    /// op(i) <= i
     fn op(index: isize) -> isize {
         index & (index + 1)
     }
 
-    /// O(1) time
-    ///
-    /// O(n) capacity
+    /// O(1) time\
+    /// O(n) space
     pub fn with_capacity(capacity: usize) -> Self {
         Self {
             size: capacity,
@@ -35,9 +30,8 @@ where
         }
     }
 
-    /// O(n) time
-    ///
-    /// O(n) capacity
+    /// O(n) time\
+    /// O(n) space
     pub fn build(array: &[T]) -> Self {
         let size = array.len();
         let mut data = vec![T::zero(); size];

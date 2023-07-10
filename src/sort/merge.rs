@@ -1,5 +1,10 @@
 use std::cmp::{Ord, Ordering};
 
+/// O(n log n) time (worst)\
+/// O(n log n) time (best)\
+/// O(n log n) time (average)\
+/// O(n) space\
+/// Stable
 pub fn merge_sort<T>(array: &mut [T])
 where
     T: Ord + Default + Copy,
