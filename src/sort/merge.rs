@@ -25,18 +25,19 @@ where
 {
     let mut first_iter = 0;
     let mut second_iter = 0;
-    let mut result = vec![T::default(); right - left + 1];
+    let size = right - left + 1;
+    let mut result = vec![T::default(); size];
 
     while left + first_iter <= mid && mid + 1 + second_iter <= right {
         match array[left + first_iter].cmp(&array[mid + 1 + second_iter]) {
             Ordering::Less => {
                 result[first_iter + second_iter] = array[left + first_iter];
                 first_iter += 1;
-            },
+            }
             _ => {
                 result[first_iter + second_iter] = array[mid + 1 + second_iter];
                 second_iter += 1;
-            },
+            }
         }
     }
 
@@ -50,9 +51,7 @@ where
         second_iter += 1;
     }
 
-    for i in 0..(first_iter + second_iter) {
-        array[left + i] = result[i];
-    }
+    array[left..(left + size)].copy_from_slice(&result);
 }
 
 #[cfg(test)]
