@@ -2,14 +2,14 @@ use std::cmp::{Ord, Ordering};
 
 pub fn merge_sort<T>(array: &mut [T])
 where
-    T: Ord + Default,
+    T: Ord + Default + Copy,
 {
-    merge_sort_helper(array, 0, array.len());
+    merge_sort_helper(array, 0, array.len() - 1);
 }
 
 fn merge_sort_helper<T>(array: &mut [T], left: usize, right: usize)
 where
-    T: Ord + Default,
+    T: Ord + Default + Copy,
 {
     if left < right {
         let mid = (left + right) / 2;
@@ -21,32 +21,32 @@ where
 
 fn merge<T>(array: &mut [T], left: usize, mid: usize, right: usize)
 where
-    T: Ord + Default,
+    T: Ord + Default + Copy,
 {
     let mut first_iter = 0;
     let mut second_iter = 0;
-    let mut result = vec![T::default(); right - left];
+    let mut result = vec![T::default(); right - left + 1];
 
-    while left + first_iter < mid && mid + second_iter < right {
-        match array[left + first_iter].cmp(array[mid + second_iter]) {
+    while left + first_iter <= mid && mid + 1 + second_iter <= right {
+        match array[left + first_iter].cmp(&array[mid + 1 + second_iter]) {
             Ordering::Less => {
                 result[first_iter + second_iter] = array[left + first_iter];
                 first_iter += 1;
             },
             _ => {
-                result[first_iter + second_iter] = array[mid + second_iter];
+                result[first_iter + second_iter] = array[mid + 1 + second_iter];
                 second_iter += 1;
             },
         }
     }
 
-    while left + first_iter < mid {
+    while left + first_iter <= mid {
         result[first_iter + second_iter] = array[left + first_iter];
         first_iter += 1;
     }
 
-    while right + second_iter < right {
-        result[first_iter + second_iter] = array[right + second_iter];
+    while mid + 1 + second_iter <= right {
+        result[first_iter + second_iter] = array[mid + 1 + second_iter];
         second_iter += 1;
     }
 
